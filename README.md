@@ -230,8 +230,9 @@ systemd-nspawn -D $CONTAINER \
   pushd ./external-builds/pytorch ;
   pushd pytorch ; git reset --hard ; git clean -f ; popd;
   python pytorch_torch_repo.py checkout ;
-    sed -i 's@\s\s.blis.@'\'blis-mt\''@'              ./pytorch/cmake/Modules/FindBLAS.cmake
-    sed -i 's@BLAS_INFO .blis."@BLAS_INFO '\'FLAME\''@'    ./pytorch/cmake/Modules/FindBLAS.cmake
+   sed -z -i 's@blis@blis-mt@3'              ./pytorch/cmake/Modules/FindBLAS.cmake
+   sed -z -i 's@blis@blis-mt@7'              ./pytorch/cmake/Modules/FindBLAS.cmake
+   sed -z -i 's@blis@FLAME@4'    ./pytorch/cmake/Modules/FindBLAS.cmake
     sed -i 's@/usr/include/blis@/usr/include@'       ./pytorch/cmake/Modules/FindBLIS.cmake
     sed -i 's@/usr/lib/blis@/usr/lib@'           ./pytorch/cmake/Modules/FindBLIS.cmake
     sed -i 's@NAMES blis PATHS@NAMES blis-mt PATHS@'     ./pytorch/cmake/Modules/FindBLIS.cmake
